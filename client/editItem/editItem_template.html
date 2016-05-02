@@ -1,0 +1,31 @@
+<template name='editItem'>
+  <div class="ui basic segment">
+    <h3 class="ui header">{{#if item.name}}Edit {{item.name}} button{{else}}New button{{/if}}</h3>
+
+    {{#autoForm id="editCard" type="update" collection="Items" enctype="multipart/form-data" doc=item}}
+      {{> afQuickField placeholder="schemaLabel" name="name" id="itemName"}}
+      {{> afQuickField placeholder="schemaLabel" name="url" id="itemUrl"}}
+      {{> afQuickField placeholder="schemaLabel" name="icon" class="ui fluid search selection dropdown" id="itemIcon"}}
+      {{> afQuickField placeholder="schemaLabel" name="color" class="ui fluid search selection dropdown" id="itemColor"}}
+      {{> afQuickField placeholder="schemaLabel" name="description" id="itemDescription"}}
+      <br>
+      <div class="ui grid">
+        <div class="two column row">
+          <div class="column"><a class="fluid ui button cancelItem">Cancel</a></div>
+          <div class="column"><button class="fluid ui positive button saveItem" type="submit">Save</button></div>
+        </div>
+      </div>
+    {{/autoForm}}
+
+    <div class="ui purple raised center aligned segment">
+      <h4 class="ui header">Preview</h4>
+      {{#if item}}
+      <button class="ui large {{item.color}} {{iconClass item.icon}} button itemButtonPreview" data-title="{{item.description}}" data-content="{{item.url}}" data-position="bottom center" data-segment="{{segmentId}}">
+        {{#if isIcon item.icon}}<i class="{{item.icon}} icon"></i>{{/if}}
+        {{item.name}}
+      </button>
+      {{/if}}
+    </div>
+  </div>
+
+</template>

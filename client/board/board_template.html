@@ -1,0 +1,120 @@
+<template name='board'>
+  {{#with board}}
+  <div class="ui basic segment">
+
+    {{#if isBoardOwner}}
+      <div class="ui small icon inverted violet menu" id="boardSettings">
+        {{#if isEditing}}
+        <a class="item" id="saveBoard">
+          <i class="big save icon"></i>
+        </a>
+        {{else}}
+        <a class="item" >
+          <i class="big setting icon"></i>
+        </a>
+        {{/if}}
+      </div>
+      <div class="ui custom popup hidden">
+        <div class="ui secondary vertical menu">
+          <a class="item" id="editBoard">
+            <i class="purple write icon"></i>
+            Edit
+          </a>
+          <a class="item">
+            <i class="green share icon"></i>
+            Share
+          </a>
+          <a class="item">
+            <i class="orange setting icon"></i>
+            Setting
+          </a>
+          <a class="item" id="deleteBoard">
+            <i class="red trash icon"></i>
+            Delete
+          </a>
+        </div>
+      </div>
+    {{else}}
+      <button id="forkBoard" class="ui basic violet icon button"><i class="big fork icon"></i></button>
+    {{/if}}
+
+      {{#if isEditing}}
+        <div class="ui center aligned basic segment">
+          <br>
+          <div class="ui stackable two column grid">
+            <div class="column">
+              <div class="ui fluid input">
+                <input type="text" placeholder="Board name" value="{{name}}" class="boardName">
+              </div>
+            </div>
+            <div class="column">
+              <div class="ui fluid input">
+                <input type="text" placeholder="Board description" value="{{description}}" class="boardDescription">
+              </div>
+            </div>
+          </div>
+        </div>
+      {{else}}
+        <h2 class="ui center aligned header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h2>
+      {{/if}}
+      {{#each segments}}
+        <div class="ui center aligned {{color}} raised segment">
+
+          {{#if isEditing}}
+          <div class="ui stackable three column grid">
+            <div class="column">
+              <div class="ui fluid input">
+                <input type="text" placeholder="Segment name" value="{{name}}" class="segmentName" data-id="{{segmentId}}">
+              </div>
+            </div>
+            <div class="column">
+              <div class="ui fluid input">
+                <input type="text" placeholder="Segment description" value="{{description}}" class="segmentDescription"  data-id="{{segmentId}}">
+              </div>
+            </div>
+            <div class="column">
+              <select placeholder="Segment color" name="color" class="ui fluid dropdown segmentColor" data-id="{{segmentId}}">
+                <option value="">Select a color</option>
+                <option value="black" {{selectedSegmentColor 'black'}}>Black</option>
+                <option value="blue" {{selectedSegmentColor 'blue'}}>Blue</option>
+                <option value="brown" {{selectedSegmentColor 'brown'}}>Brown</option>
+                <option value="green" {{selectedSegmentColor 'green'}}>Green</option>
+                <option value="grey" {{selectedSegmentColor 'grey'}}>Grey</option>
+                <option value="olive" {{selectedSegmentColor 'olive'}}>Olive</option>
+                <option value="orange" {{selectedSegmentColor 'orange'}}>Orange</option>
+                <option value="pink" {{selectedSegmentColor 'pink'}}>Pink</option>
+                <option value="purple" {{selectedSegmentColor 'purple'}}>Purple</option>
+                <option value="red" {{selectedSegmentColor 'red'}}>Red</option>
+                <option value="teal" {{selectedSegmentColor 'teal'}}>Teal</option>
+                <option value="violet" {{selectedSegmentColor 'violet'}}>Violet</option>
+                <option value="yellow" {{selectedSegmentColor 'yellow'}}>Yellow</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          {{else}}
+            {{#if name}}
+              <h3 class="ui header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h3>
+            {{/if}}
+          {{/if}}
+
+          <div class="ui horizontal list">
+            {{#each items}}
+              {{> item itemId=this segmentId=../segmentId}}
+            {{/each}}
+            {{#if isEditing}}
+              <div class="item">
+                <button class="ui basic violet icon button addItem"><i class="plus icon"></i>Add a button</button>
+              </div>
+            {{/if}}
+          </div>
+
+        </div>
+      {{/each}}
+    {{#if isEditing}}
+      <button id="addSegment" class="ui basic fluid violet icon button"><i class="plus icon"></i>Add a segment</button>
+    {{/if}}
+
+  </div>
+  {{/with}}
+</template>

@@ -1,0 +1,43 @@
+<template name='myBoards'>
+  <div class="ui basic segment">
+    <h2 class="ui header">
+      My Boards
+    </h2>
+    {{#if currentUser}}
+      <i class="circular inverted large violet plus icon" id="createBoard" data-content="Create project board" data-position="left center"></i>
+    {{/if}}
+    <div class="ui animated relaxed divided list">
+      {{#each boards}}
+      <div class="item">
+        <div class="right floated content">
+          <button class="ui yellow circular basic icon button">
+            <i class="yellow empty star icon"></i>
+          </button>
+        </div>
+        <i class="large violet rocket middle aligned icon boardHandle"></i>
+        <div class="content boardHandle">
+          <a class="header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</a>
+          <div class="description">
+            {{#if updatedAt}}
+              Updated {{fromNow updatedAt}}
+            {{else}}
+              Created {{fromNow createdAt}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      {{else}}
+        {{#if currentUser}}
+        <p>
+          You have no board for the momment, click the plus sign to create one.
+        </p>
+        {{else}}
+        <p>
+          You have to <a href="/sign-in">sign-in</a> to see your boards.
+        </p>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+  {{> newBoardModal}}
+</template>

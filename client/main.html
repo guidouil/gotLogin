@@ -1,0 +1,20 @@
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="utf-8"/>
+  <meta name="description" content="Every project 1st page"/>
+  <meta name="author" content="Guidouil"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <link rel="icon" href="/favicon.png"/>
+  <title>gotLogin</title>
+</head>
+
+
+<template name="main">
+  {{> sidebar}}
+  <div class="pusher main-container">
+    {{> header}}
+    <div class="ui main fluid container">
+      {{> yield}}
+    </div>
+  </div>
+</template>

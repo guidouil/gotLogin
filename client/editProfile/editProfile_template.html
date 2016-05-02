@@ -1,0 +1,35 @@
+<template name='editProfile'>
+
+    <div class="ui basic segment">
+      <!-- {{#if user.profile.imageId}}
+        {{> image imageId=user.profile.imageId classNames='tiny rounded right floated'}}
+      {{/if}}
+      {{> imageEdit imageId=user.profile.imageId}} -->
+      <h3 class="ui header">Edit your profil</h3>
+      <form id="editProfile" enctype="multipart/form-data" class="ui form">
+        <div class="field">
+          <label for="name">Fullname</label>
+          <input type="text" placeholder="Fullname" name="name" id="name" value="{{user.profile.name}}">
+        </div>
+        <div class="field">
+          <label for="name">Email address</label>
+          <input type="email" placeholder="Email address" name="email" id="email" value="{{contactEmail user}}" disabled="disabled">
+        </div>
+        <div class="ui grid">
+          <div class="two column row">
+            <div class="column"><a class="fluid ui button" href="{{pathFor 'profile'}}">Cancel</a></div>
+            <div class="column"><button class="fluid ui positive button" type="submit">Save</button></div>
+          </div>
+        </div>
+        <br>
+        <a class="ui fluid orange button" href="{{pathFor 'atChangePwd'}}">
+          Change password
+        </a>
+        <hr>
+        <button type="button" class="ui fluid red button" data-action="deleteMe">
+          Delete account
+        </button>
+      </form>
+    </div>
+
+</template>

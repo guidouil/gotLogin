@@ -1,0 +1,23 @@
+<template name='profile'>
+
+    <div class="ui center aligned basic segment">
+      <a href="{{pathFor 'editProfile'}}" class="ui orange right floated big circular icon button"><i class="pencil icon"></i></a>
+      <br>
+      <h2 class="ui center aligned icon header">
+        {{#if user.profile.imageId}}
+          {{> image imageId=user.profile.imageId classNames='tiny rounded centered'}}
+        {{else}}
+          <i class="violet user icon"></i>
+        {{/if}}
+        <div class="content">
+          {{user.profile.name}}
+          <div class="sub header">{{contactEmail user}}</div>
+        </div>
+      </h2>
+      <hr>
+      <button type="button" class="ui red button" data-action="logout">
+        Disconnect
+      </button>
+    </div>
+
+</template>

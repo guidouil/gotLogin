@@ -1,0 +1,6 @@
+#boardSettings, #cloneBoard {
+  position: absolute;
+  left: 14px;
+  top: 0;
+  display: inline;
+}

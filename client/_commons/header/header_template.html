@@ -1,0 +1,23 @@
+<template name='header'>
+  <div class="ui top fixed menu borderless purple inverted">
+    <div class="left menu">
+      <div class="left item">
+        <i class="big rocket icon" data-intro="" data-step="1" id="goRoot"></i>
+      </div>
+    </div>
+    <div class="center header item" id="goRoot">
+      <h1 data-intro="" data-step="2" data-position="bottom-middle-aligned">gotLogin</h1>
+    </div>
+    <div class="right menu">
+      {{#unless currentUser}}
+      <div class="item" data-action="signIn" data-intro="" data-step="3" data-position="bottom-right-aligned">
+        <i class="big sign in icon"></i>
+      </div>
+      {{else}}
+      <div class="item" data-action="signOut" data-intro="" data-step="3" >
+        <i class="big sign out icon" data-position="bottom right" data-content="Connected as {{contactEmail currentUser}}" id="signOut"></i>
+      </div>
+      {{/unless}}
+    </div>
+  </div>
+</template>

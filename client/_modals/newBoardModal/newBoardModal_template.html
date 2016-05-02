@@ -1,0 +1,32 @@
+<template name='newBoardModal'>
+  <div class="ui modal" id="newBoardModal">
+    <i class="close icon"></i>
+    <div class="header">
+      New board
+    </div>
+    <div class="content">
+      {{> newBoardModalContent}}
+    </div>
+    <div class="actions">
+      <div class="ui black deny button">
+        Cancel
+      </div>
+      <div class="ui positive right labeled icon button" id="createBoardNow">
+        Let's create
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="newBoardModalContent">
+  <div class="ui header">What is your board name?</div>
+  <div class="ui fluid input">
+    <input type="text" value="{{defaultBoardName}}" id="boardName">
+  </div>
+  <br>
+  <div class="ui toggle checkbox" id="defaultBoardCheckbox">
+    <input type="checkbox" name="defaultBoard" checked="{{defaultBoardTemplateChecked}}" id="defaultBoardTemplate">
+    <label for="defaultBoardTemplate">{{#if defaultBoardTemplateValue}}Default board content{{else}}Empty board{{/if}}</label>
+  </div>
+</template>

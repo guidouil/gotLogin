@@ -1,0 +1,15 @@
+<template name='home'>
+  <div class="ui basic segment">
+    <div class="ui stackable two column grid">
+      <div class="column">
+        {{> myBoards}}
+        {{> topItems}}
+      </div>
+      <div class="column">
+        {{> publicBoards}}
+        {{> enforceLogin}}
+      </div>
+    </div>
+  </div>
+  {{> about}}
+</template>
