@@ -1,0 +1,12 @@
+<template name='myItems'>
+  {{#if myItems}}
+  <div class="ui basic segment">
+    <h2 class="ui header">My buttons <small><i class="ui link edit icon editMyItem"></i></small></h2>
+    <div class="ui horizontal list">
+      {{#each myItems}}
+        {{> item itemId=this._id}}
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+</template>

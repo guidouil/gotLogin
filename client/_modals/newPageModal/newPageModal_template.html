@@ -1,0 +1,32 @@
+<template name='newPageModal'>
+  <div class="ui modal" id="newPageModal">
+    <i class="close icon"></i>
+    <div class="header">
+      New page
+    </div>
+    <div class="content">
+      {{> newPageModalContent}}
+    </div>
+    <div class="actions">
+      <div class="ui black deny button">
+        Cancel
+      </div>
+      <div class="ui positive right labeled icon button" id="createPageNow">
+        Let's create
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="newPageModalContent">
+  <div class="ui header">What is your page name?</div>
+  <div class="ui fluid input">
+    <input type="text" value="{{defaultPageName}}" id="pageName">
+  </div>
+  <br>
+  <div class="ui toggle checkbox" id="defaultPageCheckbox">
+    <input type="checkbox" name="defaultPage" checked="{{defaultPageTemplateChecked}}" id="defaultPageTemplate">
+    <label for="defaultPageTemplate">{{#if defaultPageTemplateValue}}Default page content{{else}}Empty page{{/if}}</label>
+  </div>
+</template>

@@ -1,10 +1,10 @@
-Template.board.onCreated(function () {
-  Meteor.subscribe('Board', Router.current().params.boardId);
+Template.page.onCreated(function () {
+  Meteor.subscribe('Page', Router.current().params.pageId);
 });
 
-Template.board.onRendered(function () {
+Template.page.onRendered(function () {
   setTimeout(function () {
-    $('#boardSettings')
+    $('#pageSettings')
     .popup({
       on        : 'click',
       popup     : $('.custom.popup'),
@@ -22,13 +22,13 @@ Template.board.onRendered(function () {
   });
 });
 
-Template.board.helpers({
-  board: function () {
-    var board = Boards.findOne({ _id: Router.current().params.boardId });
-    if (board) {
-      Session.set('documentTitle', board.name);
+Template.page.helpers({
+  page: function () {
+    var page = Pages.findOne({ _id: Router.current().params.pageId });
+    if (page) {
+      Session.set('documentTitle', page.name);
     }
-    return board;
+    return page;
   },
   isEditing: function () {
     return Session.get('editing') || false;
@@ -38,10 +38,10 @@ Template.board.helpers({
       return 'selected';
     }
   },
-  isBoardOwner: function () {
+  isPageOwner: function () {
     if (Meteor.userId()) {
-      var board = Boards.findOne({ _id: Router.current().params.boardId });
-      if (board && _.contains(board.owners, Meteor.userId())) {
+      var page = Pages.findOne({ _id: Router.current().params.pageId });
+      if (page && _.contains(page.owners, Meteor.userId())) {
         return true;
       }
     }
@@ -49,20 +49,33 @@ Template.board.helpers({
   }
 });
 
-Template.board.events({
-  'click #editBoard': function () {
+Template.page.events({
+  'click #editPage': function () {
     Session.set('editing', true);
     setTimeout(function () {
       $('select').dropdown();
     }, 200);
   },
-  'click #saveBoard': function (evt, tmpl) {
-    var boardId = Router.current().params.boardId;
-    var board = Boards.findOne({ _id: boardId });
-    if (Meteor.userId() && board && _.contains( board.owners, Meteor.userId())) {
-      var boardUpdate = {};
-      boardUpdate.name = tmpl.find('.boardName').value;
-      boardUpdate.description = tmpl.find('.boardDescription').value;
+  'click #pageIsPublic': function () {
+    var pageId = Router.current().params.pageId;
+    var page = Pages.findOne({ _id: pageId });
+    if (page.isPublic) {
+      Pages.update({ _id: pageId }, {$set:{
+        isPublic: false
+      }});
+    } else {
+      Pages.update({ _id: pageId }, {$set:{
+        isPublic: true
+      }});
+    }
+  },
+  'click #savePage': function (evt, tmpl) {
+    var pageId = Router.current().params.pageId;
+    var page = Pages.findOne({ _id: pageId });
+    if (Meteor.userId() && page && _.contains( page.owners, Meteor.userId())) {
+      var pageUpdate = {};
+      pageUpdate.name = tmpl.find('.pageName').value;
+      pageUpdate.description = tmpl.find('.pageDescription').value;
       var segmentsUpdate = [];
       $('.segmentName').each(function () {
         segmentsUpdate.push({
@@ -92,36 +105,36 @@ Template.board.events({
           });
         }
       });
-      _.each( board.segments, function (segment, index) {
+      _.each( page.segments, function (segment, index) {
         _.find( segmentsUpdate, function (segmentUpdate, index) {
           if (segment.segmentId === segmentUpdate.segmentId) {
             segmentsUpdate[index].items = segment.items;
           }
         });
       });
-      boardUpdate.segments = segmentsUpdate;
-      Boards.update({ _id: boardId }, { $set: boardUpdate });
+      pageUpdate.segments = segmentsUpdate;
+      Pages.update({ _id: pageId }, { $set: pageUpdate });
     }
     Session.set('editing', false);
     setTimeout(function () {
       $('.itemButton').popup();
     }, 100);
   },
-  'click #deleteBoard': function () {
-    var board = Boards.findOne({ _id: Router.current().params.boardId });
+  'click #deletePage': function () {
+    var page = Pages.findOne({ _id: Router.current().params.pageId });
     swal({
       title: 'Are you sure?',
-      text: 'You will not be able to recover the ' + board.name + ' board!',
+      text: 'You will not be able to recover the ' + page.name + ' page!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
       confirmButtonText: 'Yes, delete it!',
       closeOnConfirm: false
     }, function () {
-      Boards.remove({_id: board._id});
+      Pages.remove({_id: page._id});
       swal({
         title: 'Deleted!',
-        text: 'The ' + board.name + ' board has been deleted.',
+        text: 'The ' + page.name + ' page has been deleted.',
         timer: 1000,
         type: 'success'
       });
@@ -129,8 +142,8 @@ Template.board.events({
     });
   },
   'click .addItem': function (evt) {
-    Session.set('currentSegment', $(evt.currentTarget).data('segment'));
-    Session.set('currentItem', true);
+    Session.set('currentSegmentId', $(evt.currentTarget).data('segment'));
+    Session.set('currentItem', false);
     if (! $('.right.sidebar').hasClass('visible')) {
       $('.ui.right.sidebar')
         .sidebar('setting', 'transition', 'scale down')
@@ -140,10 +153,10 @@ Template.board.events({
   'click #addSegment': function () {
     var emptySegment = {};
     emptySegment.segmentId = Random.id();
-    Boards.update({ _id: Router.current().params.boardId }, { $push: { segments: emptySegment } });
+    Pages.update({ _id: Router.current().params.pageId }, { $push: { segments: emptySegment } });
   }
 });
 
-Template.board.onDestroyed(function () {
+Template.page.onDestroyed(function () {
   Session.set('editing', false);
 });

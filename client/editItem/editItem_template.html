@@ -8,11 +8,20 @@
       {{> afQuickField placeholder="schemaLabel" name="icon" class="ui fluid search selection dropdown" id="itemIcon"}}
       {{> afQuickField placeholder="schemaLabel" name="color" class="ui fluid search selection dropdown" id="itemColor"}}
       {{> afQuickField placeholder="schemaLabel" name="description" id="itemDescription"}}
+
+      {{#if isItemOwner}}
+      <br>
+      <div class="ui toggle checkbox" id="itemIsPublic">
+        <input type="checkbox" id="itemIsPublicBox" checked="{{item.isPublic}}">
+        <label for="itemIsPublicBox">Button is {{#if item.isPublic}}public{{else}}private{{/if}}</label>
+      </div>
+      <br>
+      {{/if}}
       <br>
       <div class="ui grid">
         <div class="two column row">
-          <div class="column"><a class="fluid ui button cancelItem">Cancel</a></div>
-          <div class="column"><button class="fluid ui positive button saveItem" type="submit">Save</button></div>
+          <div class="column"><button class="fluid ui button cancelItem" type="cancel">Cancel</button></div>
+          <div class="column"><a class="fluid ui positive button saveItem">Save</a></div>
         </div>
       </div>
     {{/autoForm}}

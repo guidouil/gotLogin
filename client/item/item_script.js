@@ -8,7 +8,11 @@ Template.item.onRendered(function(){
 
 Template.item.helpers({
   isEditing: function () {
-    return Session.get('editing') || false;
+    if (Meteor.userId()) {
+      return Session.get('editing') || false;
+    } else {
+      return false;
+    }
   },
   item: function () {
     return Items.findOne({_id: this.itemId});
@@ -21,6 +25,15 @@ Template.item.helpers({
   segmentId: function () {
     var template = Template.instance();
     return template.data.segmentId;
+  },
+  correctUrl: function (url) {
+    if (url && url.search('://') === -1) {
+      return 'http://' + url;
+    }
+    return url;
+  },
+  pageId: function () {
+    return Router.current().params.pageId;
   }
 });
 
@@ -29,8 +42,7 @@ Template.item.events({
     Meteor.call('itemClick', this._id);
   },
   'click .editItem': function (evt) {
-    console.log(this);
-    Session.set('currentSegment', $(evt.currentTarget).data('segment'));
+    Session.set('currentSegmentId', $(evt.currentTarget).data('segment'));
     Session.set('currentItem', this);
     if (! $('.right.sidebar').hasClass('visible')) {
       $('.ui.right.sidebar')
@@ -39,24 +51,45 @@ Template.item.events({
     }
   },
   'click .removeItem': function (evt, tmpl) {
-    var item = this;
-    console.log(item);
-    var segmentId = tmpl.$('.itemButton').data('segment');
-    console.log(segmentId);
-    swal({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover ' + item.name + ' button!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#DD6B55',
-      confirmButtonText: 'Yes, delete it!',
-      closeOnConfirm: false
-    }, function () {
-      Boards.update(
-        { _id: Router.current().params.boardId, 'segments.segmentId': segmentId },
-        { $pull: { 'segments.$.items': item } }
-      );
-      swal('Deleted!', 'The ' + item.name + ' button has been deleted.', 'success');
-    });
+    if (Meteor.userId()) {
+      var item = this;
+      var currentSegmentId = tmpl.$('.itemButton').data('segment');
+      var pageId = Router.current().params.pageId;
+      var page = Pages.findOne({ _id: pageId, owners: Meteor.userId() });
+      if (page) {
+        swal({
+          title: 'Drop it?',
+          text: 'Remove ' + item.name + ' button from page?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Yes, remove it!',
+          closeOnConfirm: false
+        }, function () {
+          _.some(page.segments, function (segment) {
+            if (segment.segmentId === currentSegmentId) {
+              var indexOfItem = segment.items.indexOf(item._id);
+              if (indexOfItem > -1) {
+                var indexOfSegment = page.segments.indexOf(segment);
+                if (indexOfSegment > -1) {
+                  segment.items.splice(indexOfItem, 1);
+                  page.segments[indexOfSegment] = segment;
+                  Pages.update({ _id: pageId }, {$set:{
+                    segments: page.segments
+                  }});
+                }
+              }
+              return true;
+            }
+          });
+          swal({
+            title: 'Removed!',
+            text: 'The ' + item.name + ' button has been removed.',
+            timer: 1000,
+            type: 'success'
+          });
+        });
+      }
+    }
   }
 });

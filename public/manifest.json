@@ -1,0 +1,17 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "gotLogin",
+  "description": "Every project needs a 1st page. One page to start them all!",
+  "short_name": "gotLogin",
+  "icons": [{
+    "src": "favicon.png",
+    "sizes": "165x165"
+  }],
+  "scope": "/",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "theme_color": "#A333C8",
+  "background_color": "#EEEFFF"
+}

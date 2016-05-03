@@ -1,21 +1,21 @@
-<template name='myBoards'>
+<template name='myPages'>
   <div class="ui basic segment">
     <h2 class="ui header">
-      My Boards
+      My pages
     </h2>
     {{#if currentUser}}
-      <i class="circular inverted large violet plus icon" id="createBoard" data-content="Create project board" data-position="left center"></i>
+      <i class="circular inverted large violet plus icon" id="createPage" data-content="Create project page" data-position="left center"></i>
     {{/if}}
     <div class="ui animated relaxed divided list">
-      {{#each boards}}
+      {{#each pages}}
       <div class="item">
         <div class="right floated content">
           <button class="ui yellow circular basic icon button">
             <i class="yellow empty star icon"></i>
           </button>
         </div>
-        <i class="large violet rocket middle aligned icon boardHandle"></i>
-        <div class="content boardHandle">
+        <i class="large violet rocket middle aligned icon pageHandle"></i>
+        <div class="content pageHandle">
           <a class="header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</a>
           <div class="description">
             {{#if updatedAt}}
@@ -29,15 +29,15 @@
       {{else}}
         {{#if currentUser}}
         <p>
-          You have no board for the momment, click the plus sign to create one.
+          You have no page for the momment, click the plus sign to create one.
         </p>
         {{else}}
         <p>
-          You have to <a href="/sign-in">log in</a> to see your boards.
+          You have to <a href="/sign-in">log in</a> to see your pages.
         </p>
         {{/if}}
       {{/each}}
     </div>
   </div>
-  {{> newBoardModal}}
+  {{> newPageModal}}
 </template>

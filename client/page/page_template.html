@@ -1,11 +1,11 @@
-<template name='board'>
-  {{#with board}}
+<template name='page'>
+  {{#with page}}
   <div class="ui basic segment">
 
-    {{#if isBoardOwner}}
-      <div class="ui small icon inverted violet menu" id="boardSettings">
+    {{#if isPageOwner}}
+      <div class="ui small icon inverted violet menu" id="pageSettings">
         {{#if isEditing}}
-        <a class="item" id="saveBoard">
+        <a class="item" id="savePage">
           <i class="big save icon"></i>
         </a>
         {{else}}
@@ -16,47 +16,51 @@
       </div>
       <div class="ui custom popup hidden">
         <div class="ui secondary vertical menu">
-          <a class="item" id="editBoard">
+          <a class="item" id="editPage">
             <i class="purple write icon"></i>
             Edit
           </a>
-          <a class="item">
+          <!-- <a class="item">
             <i class="green share icon"></i>
             Share
           </a>
           <a class="item">
             <i class="orange setting icon"></i>
             Setting
-          </a>
-          <a class="item" id="deleteBoard">
+          </a> -->
+          <a class="item" id="deletePage">
             <i class="red trash icon"></i>
             Delete
           </a>
         </div>
       </div>
     {{else}}
-      <button id="forkBoard" class="ui basic violet icon button"><i class="big fork icon"></i></button>
+      <button id="forkPage" class="ui basic violet icon button"><i class="big fork icon"></i></button>
     {{/if}}
 
       {{#if isEditing}}
-        <div class="ui center aligned basic segment">
-          <br>
-          <div class="ui stackable two column grid">
-            <div class="column">
-              <div class="ui fluid input">
-                <input type="text" placeholder="Board name" value="{{name}}" class="boardName">
-              </div>
+        <div class="ui right aligned basic segment">
+          <div class="ui toggle checkbox" id="pageIsPublic">
+            <input type="checkbox" name="defaultPage" checked="{{isPublic}}">
+            <label for="defaultPageTemplate">Page is {{#if isPublic}}public{{else}}private{{/if}}</label>
+          </div>
+        </div>
+        <div class="ui stackable two column grid">
+          <div class="column">
+            <div class="ui big fluid input">
+              <input type="text" placeholder="Page name" value="{{name}}" class="pageName">
             </div>
-            <div class="column">
-              <div class="ui fluid input">
-                <input type="text" placeholder="Board description" value="{{description}}" class="boardDescription">
-              </div>
+          </div>
+          <div class="column">
+            <div class="ui big fluid input">
+              <input type="text" placeholder="Page description" value="{{description}}" class="pageDescription">
             </div>
           </div>
         </div>
       {{else}}
         <h2 class="ui center aligned header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h2>
       {{/if}}
+
       {{#each segments}}
         <div class="ui center aligned {{color}} raised segment">
 
@@ -104,7 +108,7 @@
             {{/each}}
             {{#if isEditing}}
               <div class="item">
-                <button class="ui basic violet icon button addItem"><i class="plus icon"></i>Add a button</button>
+                <button class="ui basic violet icon button addItem" data-segment="{{segmentId}}"><i class="plus icon"></i>Add a button</button>
               </div>
             {{/if}}
           </div>
