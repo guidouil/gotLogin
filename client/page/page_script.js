@@ -168,31 +168,33 @@ Template.page.events({
   },
   'click #deletePage': function () {
     var page = Pages.findOne({ _id: Router.current().params.pageId });
-    swal({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover the ' + page.name + ' page!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#DD6B55',
-      confirmButtonText: 'Yes, delete it!',
-      closeOnConfirm: false
-    }, function () {
-      Pages.remove({_id: page._id});
+    if (Meteor.userId() && page && _.contains(page.owners, Meteor.userId())) {
       swal({
-        title: 'Deleted!',
-        text: 'The ' + page.name + ' page has been deleted.',
-        timer: 1000,
-        type: 'success'
+        title: 'Are you sure?',
+        text: 'You will not be able to recover the ' + page.name + ' page!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, delete it!',
+        closeOnConfirm: false
+      }, function () {
+        Pages.remove({_id: page._id});
+        swal({
+          title: 'Deleted!',
+          text: 'The ' + page.name + ' page has been deleted.',
+          timer: 1000,
+          type: 'success'
+        });
+        Router.go('/');
       });
-      Router.go('/');
-    });
+    }
   },
   'click .addItem': function (evt) {
     Session.set('currentSegmentId', $(evt.currentTarget).data('segment'));
     Session.set('currentItem', false);
     if (! $('.right.sidebar').hasClass('visible')) {
       $('.ui.right.sidebar')
-        .sidebar('setting', 'transition', 'scale down')
+        .sidebar('setting', 'transition', 'overlay')
         .sidebar('toggle');
     }
   },

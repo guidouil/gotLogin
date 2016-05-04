@@ -34,6 +34,13 @@ Template.item.helpers({
   },
   pageId: function () {
     return Router.current().params.pageId;
+  },
+  isItemOwner: function () {
+    var item = Items.findOne({_id: this._id});
+    if (Meteor.userId() && item && _.contains(item.owners, Meteor.userId())) {
+      return true;
+    }
+    return false;
   }
 });
 
@@ -90,6 +97,28 @@ Template.item.events({
           });
         });
       }
+    }
+  },
+  'click .deleteItem': function (evt) {
+    var item = this;
+    if (Meteor.userId() && item && _.contains(item.owners, Meteor.userId())) {
+      swal({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover the ' + item.name + ' button!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, delete it!',
+        closeOnConfirm: false
+      }, function () {
+        Items.remove({_id: item._id});
+        swal({
+          title: 'Deleted!',
+          text: 'The ' + item.name + ' button has been deleted.',
+          timer: 1000,
+          type: 'success'
+        });
+      });
     }
   }
 });

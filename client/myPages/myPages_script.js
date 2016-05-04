@@ -47,7 +47,9 @@ Template.myPages.events({
 });
 
 Template.myPages.onRendered(function () {
-  $('#createPage').popup();
+  setTimeout(function () {
+    $('#createPage').popup();
+  }, 200);
 });
 
 Template.myPages.onDestroyed(function () {

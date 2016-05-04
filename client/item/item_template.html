@@ -16,6 +16,10 @@
             </button>
             {{#if pageId}}
               <button class="ui icon button removeItem"><i class="remove icon"></i></button>
+            {{else}}
+              {{#if isItemOwner}}
+                <button class="ui icon button deleteItem"><i class="trash icon"></i></button>
+              {{/if}}
             {{/if}}
           </div>
         {{/unless}}

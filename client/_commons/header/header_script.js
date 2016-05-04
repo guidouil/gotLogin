@@ -21,6 +21,7 @@ Template.header.events({
   },
   'click [data-action=signOut]': function () {
     Meteor.logout();
+    Meteor._reload.reload();
     Router.go('/');
   },
   'click [data-action=profile]': function () {

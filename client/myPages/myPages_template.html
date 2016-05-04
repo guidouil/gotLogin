@@ -2,10 +2,12 @@
   <div class="ui basic segment">
     <h2 class="ui header">
       My pages
+      {{#if currentUser}}
+      <small>
+        <i class="ui link violet add circle icon" id="createPage" data-content="Create a page" data-position="right center"></i>
+      </small>
+      {{/if}}
     </h2>
-    {{#if currentUser}}
-      <i class="circular inverted large violet plus icon" id="createPage" data-content="Create project page" data-position="left center"></i>
-    {{/if}}
     <div class="ui animated relaxed divided list">
       {{#each pages}}
       <div class="item">
