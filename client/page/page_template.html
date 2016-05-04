@@ -3,21 +3,19 @@
   <div class="ui basic segment">
 
     {{#if isPageOwner}}
-      <div class="ui small icon inverted violet menu" id="pageSettings">
-        {{#if isEditing}}
-        <a class="item" id="savePage">
-          <i class="big save icon"></i>
-        </a>
-        {{else}}
-        <a class="item" >
-          <i class="big setting icon"></i>
-        </a>
-        {{/if}}
-      </div>
+      {{#if isEditing}}
+      <a class="item" id="savePage">
+        <i class="big green save icon"></i>
+      </a>
+      {{else}}
+      <a class="item" id="pageSettings">
+        <i class="big violet setting icon"></i>
+      </a>
+      {{/if}}
       <div class="ui custom popup hidden">
         <div class="ui secondary vertical menu">
           <a class="item" id="editPage">
-            <i class="purple write icon"></i>
+            <i class="purple edit icon"></i>
             Edit
           </a>
           <!-- <a class="item">
@@ -35,48 +33,52 @@
         </div>
       </div>
     {{else}}
-      <button id="forkPage" class="ui basic violet icon button"><i class="big fork icon"></i></button>
+      {{#if currentUser}}
+        <i class="big violet fork icon" id="forkPage"></i>
+      {{/if}}
     {{/if}}
 
       {{#if isEditing}}
-        <div class="ui right aligned basic segment">
-          <div class="ui toggle checkbox" id="pageIsPublic">
-            <input type="checkbox" name="defaultPage" checked="{{isPublic}}">
-            <label for="defaultPageTemplate">Page is {{#if isPublic}}public{{else}}private{{/if}}</label>
-          </div>
-        </div>
-        <div class="ui stackable two column grid">
-          <div class="column">
-            <div class="ui big fluid input">
-              <input type="text" placeholder="Page name" value="{{name}}" class="pageName">
+        <div class="ui basic segment">
+          <div class="ui middle aligned stackable grid">
+            <div class="seven wide column">
+              <div class="ui big fluid input">
+                <input type="text" placeholder="Page name" value="{{name}}" class="pageName">
+              </div>
             </div>
-          </div>
-          <div class="column">
-            <div class="ui big fluid input">
-              <input type="text" placeholder="Page description" value="{{description}}" class="pageDescription">
+            <div class="six wide column">
+              <div class="ui big fluid input">
+                <input type="text" placeholder="Page description" value="{{description}}" class="pageDescription">
+              </div>
+            </div>
+            <div class="three wide column">
+              <div class="ui toggle checkbox" id="pageIsPublic">
+                <input type="checkbox" name="defaultPage" checked="{{isPublic}}">
+                <label for="defaultPageTemplate">Page is <strong>{{#if isPublic}}public{{else}}private{{/if}}</strong></label>
+              </div>
             </div>
           </div>
         </div>
       {{else}}
-        <h2 class="ui center aligned header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h2>
+        <h1 class="ui center aligned header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h1>
       {{/if}}
 
       {{#each segments}}
-        <div class="ui center aligned {{color}} raised segment">
+        <div class="ui center aligned {{color}} basic segment pageSegment">
 
           {{#if isEditing}}
-          <div class="ui stackable three column grid">
-            <div class="column">
+          <div class="ui  middle aligned stackable grid">
+            <div class="seven wide column">
               <div class="ui fluid input">
                 <input type="text" placeholder="Segment name" value="{{name}}" class="segmentName" data-id="{{segmentId}}">
               </div>
             </div>
-            <div class="column">
+            <div class="six wide column">
               <div class="ui fluid input">
                 <input type="text" placeholder="Segment description" value="{{description}}" class="segmentDescription"  data-id="{{segmentId}}">
               </div>
             </div>
-            <div class="column">
+            <div class="three wide column">
               <select placeholder="Segment color" name="color" class="ui fluid dropdown segmentColor" data-id="{{segmentId}}">
                 <option value="">Select a color</option>
                 <option value="black" {{selectedSegmentColor 'black'}}>Black</option>
@@ -102,21 +104,19 @@
             {{/if}}
           {{/if}}
 
-          <div class="ui horizontal list">
+          <div class="ui horizontal list itemsList" id="{{segmentId}}">
             {{#each items}}
               {{> item itemId=this segmentId=../segmentId}}
             {{/each}}
             {{#if isEditing}}
-              <div class="item">
-                <button class="ui basic violet icon button addItem" data-segment="{{segmentId}}"><i class="plus icon"></i>Add a button</button>
-              </div>
+              <button class="ui right floated bottom aligned small basic violet icon button addItem" data-segment="{{segmentId}}"><i class="plus icon"></i>Add a button</button>
             {{/if}}
           </div>
 
         </div>
       {{/each}}
     {{#if isEditing}}
-      <button id="addSegment" class="ui basic fluid violet icon button"><i class="plus icon"></i>Add a segment</button>
+      <button id="addSegment" class="ui big basic fluid violet icon button"><i class="plus icon"></i>Add a segment</button>
     {{/if}}
 
   </div>

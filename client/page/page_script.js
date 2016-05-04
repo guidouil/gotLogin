@@ -2,11 +2,36 @@ Template.page.onCreated(function () {
   Meteor.subscribe('Page', Router.current().params.pageId);
 });
 
+var setSegmentItemsOrder = function (event) {
+  if (Meteor.userId()) {
+    var orderedItems = [];
+    $('#'+event.from.id).find('.item').each(function () {
+      orderedItems.push(this.id);
+    });
+    var pageId = Router.current().params.pageId;
+    var page = Pages.findOne({ _id: pageId, owners: Meteor.userId() });
+    var currentSegmentId = event.from.id;
+    if (page && currentSegmentId && orderedItems.length >= 1) {
+      _.some(page.segments, function (segment) {
+        if (segment.segmentId === currentSegmentId) {
+          var indexOfSegment = page.segments.indexOf(segment);
+          if (indexOfSegment > -1) {
+            segment.items = orderedItems;
+            page.segments[indexOfSegment] = segment;
+            Pages.update({ _id: pageId }, {$set:{
+              segments: page.segments
+            }});
+          }
+        }
+      });
+    }
+  }
+};
+
 Template.page.onRendered(function () {
   setTimeout(function () {
     $('#pageSettings')
     .popup({
-      on        : 'click',
       popup     : $('.custom.popup'),
       inline    : true,
       hoverable : true,
@@ -14,8 +39,15 @@ Template.page.onRendered(function () {
     });
     if (Session.get('editing')) {
       $('select').dropdown();
+      $('.itemsList').each(function () {
+        Sortable.create(document.getElementById(this.id), {
+          onSort: function (event) {
+            setSegmentItemsOrder(event);
+          }
+        });
+      });
     }
-  }, 200);
+  }, 400);
 
   Tracker.autorun(function () {
     document.title = Session.get('documentTitle');
@@ -54,7 +86,14 @@ Template.page.events({
     Session.set('editing', true);
     setTimeout(function () {
       $('select').dropdown();
-    }, 200);
+      $('.itemsList').each(function () {
+        Sortable.create(document.getElementById(this.id), {
+          onSort: function (event) {
+            setSegmentItemsOrder(event);
+          }
+        });
+      });
+    }, 400);
   },
   'click #pageIsPublic': function () {
     var pageId = Router.current().params.pageId;
@@ -118,6 +157,13 @@ Template.page.events({
     Session.set('editing', false);
     setTimeout(function () {
       $('.itemButton').popup();
+      $('#pageSettings')
+      .popup({
+        popup     : $('.custom.popup'),
+        inline    : true,
+        hoverable : true,
+        position  : 'bottom left'
+      });
     }, 100);
   },
   'click #deletePage': function () {

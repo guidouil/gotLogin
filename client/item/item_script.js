@@ -46,7 +46,7 @@ Template.item.events({
     Session.set('currentItem', this);
     if (! $('.right.sidebar').hasClass('visible')) {
       $('.ui.right.sidebar')
-        .sidebar('setting', 'transition', 'scale down')
+        .sidebar('setting', 'transition', 'overlay')
         .sidebar('toggle');
     }
   },

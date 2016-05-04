@@ -1,4 +1,4 @@
-#pageSettings, #clonePage {
+#pageSettings, #forkPage, #savePage {
   position: absolute;
   left: 14px;
   top: 0;

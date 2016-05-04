@@ -1,23 +1,25 @@
 <template name='item'>
   {{#with item}}
-    <div class="item">
-      {{#unless isEditing}}
-        <a class="ui {{color}} {{iconClass icon}} button itemButton itemClick" href="{{correctUrl url}}" target="_blank" data-title="{{description}}" data-content="{{url}}" data-position="bottom center" data-segment="{{../segmentId}}">
-          {{#if icon}}<i class="{{icon}} icon"></i>{{/if}}
-          {{name}}
-        </a>
-      {{else}}
-        <div class="ui {{color}} buttons">
-          <button class="ui {{iconClass icon}} button itemButton editItem" data-title="{{description}}" data-content="{{url}}" data-position="bottom center" data-segment="{{segmentId}}">
+    <div class="item"  id={{_id}} data-segment="{{segmentId}}">
+      <div class="middle aligned content">
+        {{#unless isEditing}}
+          <a class="ui {{color}} {{iconClass icon}} button itemButton itemClick" href="{{correctUrl url}}" target="_blank" data-title="{{description}}" data-content="{{url}}" data-position="bottom center" data-segment="{{../segmentId}}">
             {{#if icon}}<i class="{{icon}} icon"></i>{{/if}}
             {{name}}
-            <i class="edit icon"></i>
-          </button>
-          {{#if pageId}}
-            <button class="ui icon button removeItem"><i class="remove icon"></i></button>
-          {{/if}}
-        </div>
-      {{/unless}}
+          </a>
+        {{else}}
+          <div class="ui {{color}} buttons">
+            <button class="ui {{iconClass icon}} button itemButton editItem" data-title="{{description}}" data-content="{{url}}" data-position="bottom center" data-segment="{{segmentId}}">
+              {{#if icon}}<i class="{{icon}} icon"></i>{{/if}}
+              {{name}}
+              <i class="edit icon"></i>
+            </button>
+            {{#if pageId}}
+              <button class="ui icon button removeItem"><i class="remove icon"></i></button>
+            {{/if}}
+          </div>
+        {{/unless}}
+      </div>
     </div>
   {{/with}}
 </template>
