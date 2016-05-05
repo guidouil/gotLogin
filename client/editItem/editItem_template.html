@@ -4,7 +4,7 @@
 
     {{#autoForm id="editCard" type="update" collection="Items" enctype="multipart/form-data" doc=item}}
       {{> afQuickField placeholder="schemaLabel" name="name" id="itemName"}}
-      {{> afQuickField placeholder="schemaLabel" name="url" id="itemUrl"}}
+      {{> afQuickField placeholder="schemaLabel" name="url" id="itemUrl" type="url"}}
       {{> afQuickField placeholder="schemaLabel" name="icon" class="ui fluid search selection dropdown" id="itemIcon"}}
       {{> afQuickField placeholder="schemaLabel" name="color" class="ui fluid search selection dropdown" id="itemColor"}}
       {{> afQuickField placeholder="schemaLabel" name="description" id="itemDescription"}}

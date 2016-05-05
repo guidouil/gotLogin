@@ -10,7 +10,7 @@ Meteor.startup(() => {
     Items.insert({_id: 'wikipedia', name: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Special:Random', icon: 'help', color: 'olive', clicks: 0, isPublic: true, owners: ['nobody']});
     Items.insert({_id: 'dropbox', name: 'Dropbox', url: 'https://www.dropbox.com', icon: 'dropbox', color: 'blue', clicks: 0, isPublic: true, owners: ['nobody']});
     Items.insert({_id: 'wordpress', name: 'WordPress', url: 'https://wordpress.org', icon: 'browser', color: 'green', clicks: 0, isPublic: true, owners: ['nobody']});
-    Items.insert({_id: 'wpLogin', name: 'WP Admin', url: 'https://wordpress.com/wp-login.php', icon: 'dashpage', color: 'orange', clicks: 0, isPublic: true, owners: ['nobody']});
+    Items.insert({_id: 'wpLogin', name: 'WP Admin', url: 'https://wordpress.com/wp-login.php', icon: 'dashboard', color: 'orange', clicks: 0, isPublic: true, owners: ['nobody']});
     Items.insert({_id: 'phpMyAdmin', name: 'phpMyAdmin', url: 'https://www.phpmyadmin.net', icon: 'database', color: 'red', clicks: 0, isPublic: true, owners: ['nobody']});
     Items.insert({_id: 'googleAnalytics', name: 'Google Analytics', url: 'https://www.google.com/analytics', icon: 'line chart', color: 'teal', clicks: 0, isPublic: true, owners: ['nobody']});
   }

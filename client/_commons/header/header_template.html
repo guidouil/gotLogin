@@ -15,7 +15,7 @@
       </div>
       {{else}}
       <div class="item" data-action="signOut" data-intro="" data-step="3" >
-        <i class="big sign out icon" data-position="bottom right" data-content="Connected as {{contactEmail currentUser}}" id="signOut"></i>
+        <i class="big sign out icon" data-position="bottom right" data-content="Connected as {{contactEmail currentUser}} | {{userClicks}} click{{plural userClicks}}" id="signOut"></i>
       </div>
       {{/unless}}
     </div>

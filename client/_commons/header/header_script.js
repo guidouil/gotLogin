@@ -1,8 +1,23 @@
+Template.header.onCreated(function(){
+  Meteor.subscribe('UsersClicks');
+});
+
 Template.header.onRendered(function () {
-  $('#signOut').popup();
+  setTimeout(function () {
+    $('#signOut').popup();
+  }, 400);
 });
 
 Template.header.helpers({
+  userClicks: function () {
+    if (Meteor.userId()) {
+      var userClicks = UsersClicks.findOne({_id: Meteor.userId()});
+      if (userClicks) {
+        return userClicks.clicks;
+      }
+    }
+    return 0;
+  }
 });
 
 Template.header.events({

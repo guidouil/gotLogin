@@ -30,3 +30,9 @@ Meteor.publish('Item', function (itemId) {
   check(itemId, String);
   return Items.find({ _id: itemId });
 });
+
+Meteor.publish('UsersClicks', function () {
+  if (this.userId) {
+    return UsersClicks.find({ _id: this.userId });
+  }
+});
