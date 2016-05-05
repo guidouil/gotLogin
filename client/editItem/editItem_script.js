@@ -1,11 +1,5 @@
 Template.editItem.onRendered(function () {
   Tracker.autorun(function () {
-    if (Session.get('currentItem')) {
-      $('#itemIcon').dropdown('set selected', Session.get('currentItem').icon);
-      $('#itemColor').dropdown('set selected', Session.get('currentItem').color);
-    } else {
-      $('select').dropdown();
-    }
     $('.itemButtonPreview').popup();
   });
 });
@@ -131,7 +125,7 @@ Template.editItem.events({
     }
     Session.set('currentItem', currentItem);
   },
-  'change select': function (evt) {
+  'change #itemIcon, change #itemColor': function (evt) {
     var currentItem = Session.get('currentItem') || {};
     if (evt.currentTarget.value) {
       currentItem[evt.currentTarget.name] = evt.currentTarget.value;
