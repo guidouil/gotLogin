@@ -12,11 +12,6 @@ Template.publicPages.helpers({
       { isPublic: true },
       { sort: { updatedAt: -1 } }
     );
-  },
-  favorite: function () {
-    if (! _.contains( this.favorites, Meteor.userId())) {
-      return 'empty';
-    }
   }
 });
 

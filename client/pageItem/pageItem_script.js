@@ -1,4 +1,9 @@
 Template.pageItem.helpers({
+  favorite: function () {
+    if (! _.contains( this.favorites, Meteor.userId())) {
+      return 'empty';
+    }
+  }
 });
 
 Template.pageItem.events({

@@ -11,11 +11,6 @@ Template.myPages.helpers({
         { sort: { updatedAt: -1 } }
       );
     }
-  },
-  favorite: function () {
-    if (! _.contains( this.favorites, Meteor.userId())) {
-      return 'empty';
-    }
   }
 });
 
