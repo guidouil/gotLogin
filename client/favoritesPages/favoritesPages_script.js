@@ -12,9 +12,6 @@ Template.favoritesPages.helpers({
 });
 
 Template.favoritesPages.events({
-  'click .favoritePage': function () {
-    Meteor.call('favoritePage', this._id);
-  }
 });
 
 Template.favoritesPages.onRendered(function () {

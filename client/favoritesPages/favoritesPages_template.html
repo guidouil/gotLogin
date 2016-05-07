@@ -4,24 +4,7 @@
     <h2 class="ui header">Favorites pages</h2>
     <div class="ui animated relaxed divided list">
       {{#each favoritesPages}}
-      <div class="item">
-        <div class="right floated content">
-          <button class="ui yellow circular basic icon button favoritePage">
-            <i class="yellow {{favorite}} star icon"></i>
-          </button>
-        </div>
-        <i class="large violet rocket middle aligned icon pageHandle"></i>
-        <div class="content pageHandle">
-          <a class="header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</a>
-          <div class="description">
-            {{#if updatedAt}}
-              Updated {{fromNow updatedAt}}
-            {{else}}
-              Created {{fromNow createdAt}}
-            {{/if}}
-          </div>
-        </div>
-      </div>
+        {{> pageItem}}
       {{/each}}
     </div>
   </div>

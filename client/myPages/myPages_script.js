@@ -46,12 +46,6 @@ Template.myPages.events({
       }
     });
     $('#newPageModal').modal('show');
-  },
-  'click .pageHandle': function () {
-    Router.go('page', {pageId: this._id, name: this.name.replace(/\s+/g, '-').toLowerCase()});
-  },
-  'click .favoritePage': function () {
-    Meteor.call('favoritePage', this._id);
   }
 });
 
