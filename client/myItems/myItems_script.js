@@ -1,5 +1,6 @@
 Template.myItems.onCreated(function () {
-  Meteor.subscribe('MyItems');
+  var template = this
+  template.subscribe('MyItems');
 });
 
 Template.myItems.onRendered(function () {

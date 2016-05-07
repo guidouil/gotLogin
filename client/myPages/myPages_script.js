@@ -1,5 +1,6 @@
-Template.myPages.onCreated(function(){
-  Meteor.subscribe('MyPages');
+Template.myPages.onCreated(function () {
+  var template = this;
+  template.subscribe('MyPages');
 });
 
 Template.myPages.helpers({
@@ -9,6 +10,11 @@ Template.myPages.helpers({
         { $or: [{ owners: Meteor.userId() }, { users: Meteor.userId() }] },
         { sort: { updatedAt: -1 } }
       );
+    }
+  },
+  favorite: function () {
+    if (! _.contains( this.favorites, Meteor.userId())) {
+      return 'empty';
     }
   }
 });
@@ -43,6 +49,9 @@ Template.myPages.events({
   },
   'click .pageHandle': function () {
     Router.go('page', {pageId: this._id, name: this.name.replace(/\s+/g, '-').toLowerCase()});
+  },
+  'click .favoritePage': function () {
+    Meteor.call('favoritePage', this._id);
   }
 });
 

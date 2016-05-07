@@ -1,5 +1,6 @@
 Template.header.onCreated(function(){
-  Meteor.subscribe('UsersClicks');
+  var template = this;
+  template.subscribe('UsersClicks');
 });
 
 Template.header.onRendered(function () {

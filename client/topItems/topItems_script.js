@@ -1,5 +1,6 @@
 Template.topItems.onCreated(function () {
-  Meteor.subscribe('PublicItems');
+  var template = this
+  template.subscribe('PublicItems');
 });
 
 Template.topItems.helpers({

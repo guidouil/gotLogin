@@ -4,6 +4,12 @@ Meteor.publish('MyPages', function () {
   }
 });
 
+Meteor.publish('FavoritesPages', function () {
+  if (this.userId) {
+    return Pages.find({ $or: [{ isPublic: true }, { owners: this.userId }, { users: this.userId }], favorites: this.userId });
+  }
+});
+
 Meteor.publish('PublicPages', function () {
   return Pages.find({ isPublic: true });
 });

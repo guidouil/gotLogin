@@ -1,5 +1,6 @@
 Template.page.onCreated(function () {
-  Meteor.subscribe('Page', Router.current().params.pageId);
+  var template = this
+  template.subscribe('Page', Router.current().params.pageId);
 });
 
 Template.page.onRendered(function () {
@@ -42,6 +43,11 @@ Template.page.helpers({
   selectedSegmentColor: function (color) {
     if (this.color === color) {
       return 'selected';
+    }
+  },
+  favorite: function () {
+    if (! _.contains( this.favorites, Meteor.userId())) {
+      return 'empty';
     }
   }
 });

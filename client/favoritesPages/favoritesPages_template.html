@@ -1,8 +1,9 @@
-<template name='publicPages'>
+<template name='favoritesPages'>
+  {{#if favoritesPages}}
   <div class="ui basic segment">
-    <h2 class="ui header">Public pages</h2>
+    <h2 class="ui header">Favorites pages</h2>
     <div class="ui animated relaxed divided list">
-      {{#each pages}}
+      {{#each favoritesPages}}
       <div class="item">
         <div class="right floated content">
           <button class="ui yellow circular basic icon button favoritePage">
@@ -24,4 +25,5 @@
       {{/each}}
     </div>
   </div>
+  {{/if}}
 </template>
