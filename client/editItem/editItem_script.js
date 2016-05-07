@@ -4,9 +4,14 @@ Template.editItem.onRendered(function () {
   });
 });
 
+Template.editItem.onDestroyed(function () {
+  Session.delete('sideBarData');
+  Session.delete('sideBarTemplate');
+});
+
 Template.editItem.helpers({
   item: function () {
-    return Session.get('currentItem');
+    return Session.get('sideBarData');
   },
   iconClass: function (icon) {
     if (icon && icon !== 'noIcon') {
@@ -20,7 +25,7 @@ Template.editItem.helpers({
     return false;
   },
   isItemOwner: function () {
-    var item = Session.get('currentItem');
+    var item = Session.get('sideBarData');
     if (Meteor.userId() && item && _.contains(item.owners, Meteor.userId())) {
       return true;
     }
@@ -35,7 +40,7 @@ var validateUrl = function (value) {
 Template.editItem.events({
   'click .saveItem': function (evt, tmpl) {
     evt.preventDefault();
-    var item = Session.get('currentItem');
+    var item = Session.get('sideBarData');
     var itemName = tmpl.find('#itemName').value;
     var itemUrl = tmpl.find('#itemUrl').value;
     var itemIcon = tmpl.find('#itemIcon').value;
@@ -109,36 +114,38 @@ Template.editItem.events({
       }
     }
 
-    Session.delete('currentItem');
+    Session.delete('sideBarData');
+    Session.delete('sideBarTemplate');
     $('.ui.right.sidebar').sidebar('hide');
     $('select').dropdown('restore defaults');
   },
   'click .cancelItem': function () {
-    Session.delete('currentItem');
+    Session.delete('sideBarData');
+    Session.delete('sideBarTemplate');
     $('.ui.right.sidebar').sidebar('hide');
     $('select').dropdown('restore defaults');
   },
   'input #itemName, input #itemUrl, input #itemDescription': function (evt) {
-    var currentItem = Session.get('currentItem') || {};
+    var currentItem = Session.get('sideBarData') || {};
     if (evt.currentTarget.value) {
       currentItem[evt.currentTarget.name] = evt.currentTarget.value;
     }
-    Session.set('currentItem', currentItem);
+    Session.set('sideBarData', currentItem);
   },
   'change #itemIcon, change #itemColor': function (evt) {
-    var currentItem = Session.get('currentItem') || {};
+    var currentItem = Session.get('sideBarData') || {};
     if (evt.currentTarget.value) {
       currentItem[evt.currentTarget.name] = evt.currentTarget.value;
     }
-    Session.set('currentItem', currentItem);
+    Session.set('sideBarData', currentItem);
   },
   'click #itemIsPublic': function (evt) {
-    var currentItem = Session.get('currentItem') || {};
+    var currentItem = Session.get('sideBarData') || {};
     if (currentItem.isPublic) {
       currentItem.isPublic = false;
     } else {
       currentItem.isPublic = true;
     }
-    Session.set('currentItem', currentItem);
+    Session.set('sideBarData', currentItem);
   }
 });

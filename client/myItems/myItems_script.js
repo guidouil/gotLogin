@@ -32,7 +32,8 @@ Template.myItems.events({
     }
   },
   'click .createItem': function () {
-    Session.set('currentItem', false);
+    Session.delete('sideBarData');
+    Session.set('sideBarTemplate', 'editItem');
     if (! $('.right.sidebar').hasClass('visible')) {
       $('.ui.right.sidebar')
         .sidebar('setting', 'transition', 'overlay')

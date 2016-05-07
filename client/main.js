@@ -19,3 +19,10 @@ UI.registerHelper('plural', function (number) {
     return 's';
   }
 });
+
+UI.registerHelper('isPageOwner', function () {
+  if (Meteor.userId()) {
+    return isPageOwner(Router.current().params.pageId, Meteor.userId());
+  }
+  return false;
+});

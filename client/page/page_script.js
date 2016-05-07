@@ -2,32 +2,6 @@ Template.page.onCreated(function () {
   Meteor.subscribe('Page', Router.current().params.pageId);
 });
 
-var setSegmentItemsOrder = function (event) {
-  if (Meteor.userId()) {
-    var orderedItems = [];
-    $('#'+event.from.id).find('.item').each(function () {
-      orderedItems.push(this.id);
-    });
-    var pageId = Router.current().params.pageId;
-    var page = Pages.findOne({ _id: pageId, owners: Meteor.userId() });
-    var currentSegmentId = event.from.id;
-    if (page && currentSegmentId && orderedItems.length >= 1) {
-      _.some(page.segments, function (segment) {
-        if (segment.segmentId === currentSegmentId) {
-          var indexOfSegment = page.segments.indexOf(segment);
-          if (indexOfSegment > -1) {
-            segment.items = orderedItems;
-            page.segments[indexOfSegment] = segment;
-            Pages.update({ _id: pageId }, {$set:{
-              segments: page.segments
-            }});
-          }
-        }
-      });
-    }
-  }
-};
-
 Template.page.onRendered(function () {
   setTimeout(function () {
     $('#pageSettings')
@@ -69,15 +43,6 @@ Template.page.helpers({
     if (this.color === color) {
       return 'selected';
     }
-  },
-  isPageOwner: function () {
-    if (Meteor.userId()) {
-      var page = Pages.findOne({ _id: Router.current().params.pageId });
-      if (page && _.contains(page.owners, Meteor.userId())) {
-        return true;
-      }
-    }
-    return false;
   }
 });
 
@@ -191,7 +156,8 @@ Template.page.events({
   },
   'click .addItem': function (evt) {
     Session.set('currentSegmentId', $(evt.currentTarget).data('segment'));
-    Session.set('currentItem', false);
+    Session.delete('sideBarData');
+    Session.set('sideBarTemplate', 'editItem');
     if (! $('.right.sidebar').hasClass('visible')) {
       $('.ui.right.sidebar')
         .sidebar('setting', 'transition', 'overlay')
@@ -202,9 +168,44 @@ Template.page.events({
     var emptySegment = {};
     emptySegment.segmentId = Random.id();
     Pages.update({ _id: Router.current().params.pageId }, { $push: { segments: emptySegment } });
+  },
+  'click #ownersAndUsers': function () {
+    Session.set('sideBarData', this);
+    Session.set('sideBarTemplate', 'ownersAndUsers');
+    if (! $('.right.sidebar').hasClass('visible')) {
+      $('.ui.right.sidebar')
+        .sidebar('setting', 'transition', 'overlay')
+        .sidebar('toggle');
+    }
   }
 });
 
 Template.page.onDestroyed(function () {
   Session.set('editing', false);
 });
+
+var setSegmentItemsOrder = function (event) {
+  if (Meteor.userId()) {
+    var orderedItems = [];
+    $('#'+event.from.id).find('.item').each(function () {
+      orderedItems.push(this.id);
+    });
+    var pageId = Router.current().params.pageId;
+    var page = Pages.findOne({ _id: pageId, owners: Meteor.userId() });
+    var currentSegmentId = event.from.id;
+    if (page && currentSegmentId && orderedItems.length >= 1) {
+      _.some(page.segments, function (segment) {
+        if (segment.segmentId === currentSegmentId) {
+          var indexOfSegment = page.segments.indexOf(segment);
+          if (indexOfSegment > -1) {
+            segment.items = orderedItems;
+            page.segments[indexOfSegment] = segment;
+            Pages.update({ _id: pageId }, {$set:{
+              segments: page.segments
+            }});
+          }
+        }
+      });
+    }
+  }
+};

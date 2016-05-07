@@ -1,0 +1,32 @@
+<template name='ownersAndUsers'>
+  {{#with page}}
+    {{#if isPageOwner}}
+      <div class="ui basic segment">
+        <h2 class="ui header">Owners</h2>
+        <div class="ui list">
+        {{#each owners}}
+        <div class="item" id="{{userId}}">{{email}}   <i class="red remove icon" id="removeOwner"></i></div>
+        {{/each}}
+        </div>
+        <h4 class="ui header">Add page owner</h4>
+        <div class="ui action fluid input">
+          <input type="email" id="ownerMail" placeholder="Owner email address">
+          <button type="button" class="ui green icon button" id="searchOwner"><i class="plus icon"></i></button>
+        </div>
+        <h2 class="ui header">Users</h2>
+        <div class="ui list">
+        {{#each users}}
+        <div class="item" id="{{userId}}">{{email}}   <i class="red remove icon" id="removeUser"></i></div>
+        {{else}}
+        <div class="item">no private user yet</div>
+        {{/each}}
+        </div>
+        <h4 class="ui header">Add page user</h4>
+        <div class="ui action fluid input">
+          <input type="email" id="userMail" placeholder="User email address">
+          <button type="button" class="ui green icon button" id="searchUser"><i class="plus icon"></i></button>
+        </div>
+      </div>
+    {{/if}}
+  {{/with}}
+</template>
