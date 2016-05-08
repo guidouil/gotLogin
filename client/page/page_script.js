@@ -183,6 +183,18 @@ Template.page.events({
         .sidebar('setting', 'transition', 'overlay')
         .sidebar('toggle');
     }
+  },
+  'click #forkPage': function () {
+    var page = this;
+    delete page._id;
+    delete page.owners;
+    delete page.users;
+    delete page.favorites;
+    delete page.createdAt;
+    delete page.updatedAt;
+    page.isPublic = false;
+    Pages.insert(page);
+    Router.go('home');
   }
 });
 

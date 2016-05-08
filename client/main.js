@@ -20,9 +20,12 @@ UI.registerHelper('plural', function (number) {
   }
 });
 
-UI.registerHelper('isPageOwner', function () {
+UI.registerHelper('isPageOwner', function (pageId) {
   if (Meteor.userId()) {
-    return isPageOwner(Router.current().params.pageId, Meteor.userId());
+    if (! pageId) {
+      pageId = Router.current().params.pageId;
+    }
+    return isPageOwner(pageId, Meteor.userId());
   }
   return false;
 });
