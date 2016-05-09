@@ -21,6 +21,9 @@ Template.page.onRendered(function () {
           }
         });
       });
+      Sortable.create(document.getElementById('pageSegments'), {
+        draggable: 'pageSegment'
+      });
     }
   }, 400);
 

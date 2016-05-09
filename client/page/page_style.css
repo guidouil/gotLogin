@@ -4,3 +4,10 @@
   top: 0;
   display: inline;
 }
+
+.dropSegment {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: inline;
+}

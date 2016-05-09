@@ -4,12 +4,17 @@
       <div class="column">
         {{> favoritesPages}}
         {{> myPages}}
-        {{> myItems}}
-        {{> enforceLogin}}
+        {{#if currentUser}}
+          {{> myItems}}
+          {{> myClicks}}
+        {{else}}
+          {{> enforceLogin}}
+        {{/if}}
       </div>
       <div class="column">
         {{> publicPages}}
         {{> topItems}}
+        {{> allClicks}}
       </div>
     </div>
   </div>

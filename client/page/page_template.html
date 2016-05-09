@@ -58,59 +58,62 @@
       {{else}}
         <h1 class="ui center aligned header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h1>
       {{/if}}
+      <div id="pageSegments">
+        {{#each segments}}
+          <div class="ui center aligned {{color}} basic segment pageSegment">
 
-      {{#each segments}}
-        <div class="ui center aligned {{color}} basic segment pageSegment">
-
-          {{#if isEditing}}
-          <div class="ui  middle aligned stackable grid">
-            <div class="seven wide column">
-              <div class="ui fluid input">
-                <input type="text" placeholder="Segment name" value="{{name}}" class="segmentName" data-id="{{segmentId}}">
-              </div>
-            </div>
-            <div class="six wide column">
-              <div class="ui fluid input">
-                <input type="text" placeholder="Segment description" value="{{description}}" class="segmentDescription"  data-id="{{segmentId}}">
-              </div>
-            </div>
-            <div class="three wide column">
-              <select placeholder="Segment color" name="color" class="ui fluid dropdown segmentColor" data-id="{{segmentId}}">
-                <option value="">Select a color</option>
-                <option value="black" {{selectedSegmentColor 'black'}}>Black</option>
-                <option value="blue" {{selectedSegmentColor 'blue'}}>Blue</option>
-                <option value="brown" {{selectedSegmentColor 'brown'}}>Brown</option>
-                <option value="green" {{selectedSegmentColor 'green'}}>Green</option>
-                <option value="grey" {{selectedSegmentColor 'grey'}}>Grey</option>
-                <option value="olive" {{selectedSegmentColor 'olive'}}>Olive</option>
-                <option value="orange" {{selectedSegmentColor 'orange'}}>Orange</option>
-                <option value="pink" {{selectedSegmentColor 'pink'}}>Pink</option>
-                <option value="purple" {{selectedSegmentColor 'purple'}}>Purple</option>
-                <option value="red" {{selectedSegmentColor 'red'}}>Red</option>
-                <option value="teal" {{selectedSegmentColor 'teal'}}>Teal</option>
-                <option value="violet" {{selectedSegmentColor 'violet'}}>Violet</option>
-                <option value="yellow" {{selectedSegmentColor 'yellow'}}>Yellow</option>
-              </select>
-            </div>
-          </div>
-          <br>
-          {{else}}
-            {{#if name}}
-              <h3 class="ui header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h3>
-            {{/if}}
-          {{/if}}
-
-          <div class="ui horizontal list itemsList" id="{{segmentId}}">
-            {{#each items}}
-              {{> item itemId=this segmentId=../segmentId}}
-            {{/each}}
             {{#if isEditing}}
-              <button class="ui right floated bottom aligned small basic violet icon button addItem" data-segment="{{segmentId}}"><i class="plus icon"></i>Add a button</button>
+            <div class="ui  middle aligned stackable grid">
+              <div class="seven wide column">
+                <div class="ui fluid input">
+                  <input type="text" placeholder="Segment name" value="{{name}}" class="segmentName" data-id="{{segmentId}}">
+                </div>
+              </div>
+              <div class="six wide column">
+                <div class="ui fluid input">
+                  <input type="text" placeholder="Segment description" value="{{description}}" class="segmentDescription"  data-id="{{segmentId}}">
+                </div>
+              </div>
+              <div class="three wide column">
+                <select placeholder="Segment color" name="color" class="ui fluid dropdown segmentColor" data-id="{{segmentId}}">
+                  <option value="">Select a color</option>
+                  <option value="black" {{selectedSegmentColor 'black'}}>Black</option>
+                  <option value="blue" {{selectedSegmentColor 'blue'}}>Blue</option>
+                  <option value="brown" {{selectedSegmentColor 'brown'}}>Brown</option>
+                  <option value="green" {{selectedSegmentColor 'green'}}>Green</option>
+                  <option value="grey" {{selectedSegmentColor 'grey'}}>Grey</option>
+                  <option value="olive" {{selectedSegmentColor 'olive'}}>Olive</option>
+                  <option value="orange" {{selectedSegmentColor 'orange'}}>Orange</option>
+                  <option value="pink" {{selectedSegmentColor 'pink'}}>Pink</option>
+                  <option value="purple" {{selectedSegmentColor 'purple'}}>Purple</option>
+                  <option value="red" {{selectedSegmentColor 'red'}}>Red</option>
+                  <option value="teal" {{selectedSegmentColor 'teal'}}>Teal</option>
+                  <option value="violet" {{selectedSegmentColor 'violet'}}>Violet</option>
+                  <option value="yellow" {{selectedSegmentColor 'yellow'}}>Yellow</option>
+                </select>
+              </div>
+              <i class="big link red close icon dropSegment" data-id="{{segmentId}}"></i>
+            </div>
+            <br>
+            {{else}}
+              {{#if name}}
+                <h3 class="ui header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</h3>
+              {{/if}}
             {{/if}}
-          </div>
 
-        </div>
-      {{/each}}
+            <div class="ui horizontal list itemsList" id="{{segmentId}}">
+              {{#each items}}
+                {{> item itemId=this segmentId=../segmentId}}
+              {{/each}}
+              {{#if isEditing}}
+                <button class="ui right floated bottom aligned small basic violet icon button addItem" data-segment="{{segmentId}}"><i class="plus icon"></i>Add a button</button>
+              {{/if}}
+            </div>
+
+          </div>
+        {{/each}}
+      </div>
+
     {{#if isEditing}}
       <button id="addSegment" class="ui big basic fluid violet icon button"><i class="plus icon"></i>Add a segment</button>
     {{/if}}

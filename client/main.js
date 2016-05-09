@@ -20,6 +20,10 @@ UI.registerHelper('plural', function (number) {
   }
 });
 
+UI.registerHelper('lte', function (a, b) {
+  return a <= b;
+});
+
 UI.registerHelper('isPageOwner', function (pageId) {
   if (Meteor.userId()) {
     if (! pageId) {

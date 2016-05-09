@@ -1,9 +1,8 @@
-# gotLogin
-One page to start them all!
+# gotLogin: One page to start them all!
 
 Because every project needs a starting page.
 
-## Install gotLogin localy
+## Install gotLogin locally
 
 [install Meteor](https://www.meteor.com/install)
 

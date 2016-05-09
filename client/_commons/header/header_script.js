@@ -6,7 +6,7 @@ Template.header.onCreated(function(){
 Template.header.onRendered(function () {
   setTimeout(function () {
     $('#signOut').popup();
-  }, 400);
+  }, 800);
 });
 
 Template.header.helpers({
