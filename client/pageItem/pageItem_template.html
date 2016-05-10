@@ -1,12 +1,10 @@
 <template name='pageItem'>
   <div class="item">
     <div class="right floated content">
-      <button class="ui yellow circular basic icon button favoritePage">
-        <i class="yellow {{favorite}} star icon"></i>
-      </button>
+      <i class="yellow big {{favorite}} star icon favoritePage"></i>
     </div>
     <i class="large violet rocket middle aligned icon pageHandle"></i>
-    <div class="content pageHandle">
+    <div class="content pageHandle" style="width:100%;">
       <a class="header">{{name}}{{#if description}} | <small>{{description}}</small>{{/if}}</a>
       <div class="description">
         {{#if updatedAt}}
@@ -15,7 +13,7 @@
           Created {{fromNow createdAt}}
         {{/if}}
         {{#if isPageOwner _id}}
-          <strong>[owner]</strong>
+          <i class="fitted flag icon"></i>
         {{/if}}
       </div>
     </div>

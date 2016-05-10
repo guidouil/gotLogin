@@ -49,7 +49,7 @@ Template.page.helpers({
     }
   },
   favorite: function () {
-    if (! _.contains( this.favorites, Meteor.userId())) {
+    if (! Meteor.userId() || ! _.contains( this.favorites, Meteor.userId())) {
       return 'empty';
     }
   }
@@ -198,6 +198,11 @@ Template.page.events({
     page.isPublic = false;
     Pages.insert(page);
     Router.go('home');
+  },
+  'click .favoriteOnPage': function () {
+    if (Meteor.userId()) {
+      Meteor.call('favoritePage', this._id);
+    }
   }
 });
 

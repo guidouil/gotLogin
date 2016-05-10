@@ -55,7 +55,12 @@ var badges = [
   {
     'count': 13,
     'name': 'Lucky click',
-    'phrase': 'This open a lucky path under the pointer.'
+    'phrase': 'This click opens a lucky path under the pointer.'
+  },
+  {
+    'count': 16,
+    'name': 'Sweet click',
+    'phrase': 'This click is young.'
   },
   {
     'count': 23,

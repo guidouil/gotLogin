@@ -11,3 +11,10 @@
   top: 0;
   display: inline;
 }
+
+.favoriteOnPage {
+  position: absolute;
+  right: 14px;
+  top: 0;
+  display: inline;
+}
