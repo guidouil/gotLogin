@@ -1,17 +1,15 @@
 <template name='myTrophies'>
   <div class="ui basic segment">
-    <h3 class="ui header">My trophies</h3>
-    <div class="ui large divided list">
+    <h3 class="ui header"><i class="pink fitted trophy icon"></i>My trophies</h3>
+    <div class="ui relaxed divided list">
       {{#each myTrophies}}
         <div class="item">
-          <i class="big pink trophy icon"></i>
           <div class="middle aligned content">
             <div class="header">
               {{name}}
             </div>
             <div class="description">
-              {{phrase}}<br>
-              <small>Trophy won with {{count}} click{{plural count}}.</small>
+              {{phrase}} ({{count}} click{{plural count}})
             </div>
           </div>
         </div>

@@ -6,7 +6,6 @@ Template.editItem.onRendered(function () {
 
 Template.editItem.onDestroyed(function () {
   Session.delete('sideBarData');
-  Session.delete('sideBarTemplate');
 });
 
 Template.editItem.helpers({
@@ -115,13 +114,11 @@ Template.editItem.events({
     }
 
     Session.delete('sideBarData');
-    Session.delete('sideBarTemplate');
     $('.ui.right.sidebar').sidebar('hide');
     $('select').dropdown('restore defaults');
   },
   'click .cancelItem': function () {
     Session.delete('sideBarData');
-    Session.delete('sideBarTemplate');
     $('.ui.right.sidebar').sidebar('hide');
     $('select').dropdown('restore defaults');
   },
