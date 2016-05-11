@@ -1,11 +1,7 @@
 html.ios, html.ios body{
   height: 100%!important;
 }
-body {
-  background-color: #EEEFFF !important;
-}
 .main-container {
-  background-color: #EEEFFF !important;
   padding-top: 62px;
 }
 .top.menu .item {

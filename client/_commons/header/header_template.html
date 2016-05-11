@@ -1,5 +1,5 @@
 <template name='header'>
-  <div class="ui top fixed menu borderless purple inverted">
+  <div class="ui top fixed menu borderless teal inverted">
     <div class="left menu">
       <div class="left item">
         <i class="big rocket icon" data-intro="" data-step="1" id="goRoot"></i>
@@ -14,7 +14,7 @@
         <i class="big sign in icon"></i>
       </div>
       {{else}}
-      <div class="item" data-action="signOut" data-intro="" data-step="3" id="signOut" data-position="bottom right" data-content="Connected as {{contactEmail currentUser}} | {{userClicks}} click{{plural userClicks}}">
+      <div class="item" data-action="signOut" data-intro="" data-step="3" id="signOut" data-position="bottom right" data-content="Connected as {{contactEmail currentUser}}">
         <i class="big sign out icon"></i>
       </div>
       {{/unless}}

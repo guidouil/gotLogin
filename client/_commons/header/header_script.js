@@ -1,6 +1,4 @@
 Template.header.onCreated(function(){
-  var template = this;
-  template.subscribe('UsersClicks');
 });
 
 Template.header.onRendered(function () {
@@ -10,15 +8,7 @@ Template.header.onRendered(function () {
 });
 
 Template.header.helpers({
-  userClicks: function () {
-    if (Meteor.userId()) {
-      var userClicks = UsersClicks.findOne({_id: Meteor.userId()});
-      if (userClicks) {
-        return userClicks.clicks;
-      }
-    }
-    return 0;
-  }
+
 });
 
 Template.header.events({

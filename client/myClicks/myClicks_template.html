@@ -1,19 +1,19 @@
 <template name='myClicks'>
   <div class="ui basic segment">
     <h2 class="ui header"><small>You've clicked </small>{{myClicks}}<small> time{{plural myClicks}} on {{#if lte myClicks 1}}a {{/if}}button{{plural myClicks}}.</small></h2>
-    {{#if currentBadge}}
-      <div class="ui huge middle aligned list">
+    {{#if currentTrophy}}
+      <div class="ui huge middle aligned list currentTrophy">
         <div class="item">
-          <i class="big purple middle aligned trophy icon"></i>
+          <i class="big pink middle aligned trophy icon"></i>
           <div class="content">
             <div class="header">
-              {{currentBadge.name}}
+              {{currentTrophy.name}}
             </div>
             <div class="description">
-              {{currentBadge.phrase}}
+              {{currentTrophy.phrase}}
             </div>
             <div class="extra">
-              <small>Trophy won with {{currentBadge.count}} click{{plural currentBadge.count}}.</small>
+              <small>Trophy won with {{currentTrophy.count}} click{{plural currentTrophy.count}}.</small>
             </div>
           </div>
         </div>

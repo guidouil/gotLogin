@@ -9,17 +9,17 @@
       </a>
       {{else}}
       <a class="item" id="pageSettings">
-        <i class="big violet setting icon"></i>
+        <i class="big teal setting icon"></i>
       </a>
       {{/if}}
       <div class="ui custom popup hidden">
         <div class="ui secondary vertical menu">
           <a class="item" id="editPage">
-            <i class="purple edit icon"></i>
+            <i class="pink edit icon"></i>
             Edit page
           </a>
           <a class="item" id="ownersAndUsers">
-            <i class="violet users icon"></i>
+            <i class="teal users icon"></i>
             Owners & users
           </a>
           <a class="item" id="deletePage">
@@ -30,7 +30,7 @@
       </div>
     {{else}}
       {{#if currentUser}}
-        <i class="big violet fork icon" id="forkPage"></i>
+        <i class="big teal fork icon" id="forkPage"></i>
       {{/if}}
     {{/if}}
     <i class="yellow big {{favorite}} star icon favoriteOnPage"></i>
@@ -107,7 +107,7 @@
                 {{> item itemId=this segmentId=../segmentId}}
               {{/each}}
               {{#if isEditing}}
-                <button class="ui right floated bottom aligned small basic violet icon button addItem" data-segment="{{segmentId}}"><i class="plus icon"></i>Add a button</button>
+                <button class="ui right floated bottom aligned small basic teal icon button addItem" data-segment="{{segmentId}}"><i class="plus icon"></i>Add a button</button>
               {{/if}}
             </div>
 
@@ -116,7 +116,7 @@
       </div>
 
     {{#if isEditing}}
-      <button id="addSegment" class="ui big basic fluid violet icon button"><i class="plus icon"></i>Add a segment</button>
+      <button id="addSegment" class="ui big basic fluid teal icon button"><i class="plus icon"></i>Add a segment</button>
     {{/if}}
 
   </div>

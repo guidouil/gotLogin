@@ -12,7 +12,7 @@ Template.sidebar.helpers({
 });
 
 Template.sidebar.events({
-  'click a.item': function () {
-    $('.ui.labeled.icon.sidebar').sidebar('toggle');
+  'click .closeRightSidebar': function () {
+    $('.ui.sidebar').sidebar('toggle');
   }
 });
