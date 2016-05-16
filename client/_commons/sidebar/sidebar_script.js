@@ -1,7 +1,3 @@
-Template.sidebar.onRendered(function () {
-
-});
-
 Template.sidebar.helpers({
   sideBarTemplate: function () {
     return Session.get('sideBarTemplate');

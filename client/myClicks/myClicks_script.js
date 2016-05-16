@@ -27,11 +27,7 @@ Template.myClicks.events({
   'click .currentTrophy': function () {
     Session.delete('sideBarData');
     Session.set('sideBarTemplate', 'myTrophies');
-    if (! $('.right.sidebar').hasClass('visible')) {
-      $('.ui.right.sidebar')
-        .sidebar('setting', 'transition', 'overlay')
-        .sidebar('toggle');
-    }
+    openRightSidebar();
   }
 });
 

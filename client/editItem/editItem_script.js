@@ -1,11 +1,13 @@
-Template.editItem.onRendered(function () {
-  Tracker.autorun(function () {
-    $('.itemButtonPreview').popup();
-  });
+Template.editItem.onCreated(function () {
 });
 
-Template.editItem.onDestroyed(function () {
-  Session.delete('sideBarData');
+Template.editItem.onRendered(function () {
+  setTimeout(function () {
+    $('.itemButtonPreview').popup();
+    if (! Session.get('sideBarData')) {
+      $('select').dropdown('restore defaults');
+    }
+  }, 500);
 });
 
 Template.editItem.helpers({
@@ -29,6 +31,15 @@ Template.editItem.helpers({
       return true;
     }
     return false;
+  },
+  currentSegmentId: function () {
+    return Session.get('currentSegmentId');
+  },
+  isAddingItem: function () {
+    if (! Session.get('sideBarData') && Session.get('currentSegmentId')) {
+      return true;
+    }
+    return Session.get('currentSegmentId') && ! Session.get('sideBarData')._id;
   }
 });
 
@@ -114,13 +125,13 @@ Template.editItem.events({
     }
 
     Session.delete('sideBarData');
+    Session.delete('currentSegmentId');
     $('.ui.right.sidebar').sidebar('hide');
-    $('select').dropdown('restore defaults');
   },
   'click .cancelItem': function () {
     Session.delete('sideBarData');
+    Session.delete('currentSegmentId');
     $('.ui.right.sidebar').sidebar('hide');
-    $('select').dropdown('restore defaults');
   },
   'input #itemName, input #itemUrl, input #itemDescription': function (evt) {
     var currentItem = Session.get('sideBarData') || {};

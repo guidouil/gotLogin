@@ -1,5 +1,5 @@
 Template.publicPages.onCreated(function(){
-  var template = this
+  var template = this;
   template.subscribe('PublicPages');
 });
 

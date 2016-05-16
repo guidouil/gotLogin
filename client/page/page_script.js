@@ -1,5 +1,5 @@
 Template.page.onCreated(function () {
-  var template = this
+  var template = this;
   template.subscribe('Page', Router.current().params.pageId);
 });
 
@@ -167,11 +167,7 @@ Template.page.events({
     Session.set('currentSegmentId', $(evt.currentTarget).data('segment'));
     Session.delete('sideBarData');
     Session.set('sideBarTemplate', 'editItem');
-    if (! $('.right.sidebar').hasClass('visible')) {
-      $('.ui.right.sidebar')
-        .sidebar('setting', 'transition', 'overlay')
-        .sidebar('toggle');
-    }
+    openRightSidebar();
   },
   'click #addSegment': function () {
     var emptySegment = {};
@@ -181,11 +177,7 @@ Template.page.events({
   'click #ownersAndUsers': function () {
     Session.set('sideBarData', this);
     Session.set('sideBarTemplate', 'ownersAndUsers');
-    if (! $('.right.sidebar').hasClass('visible')) {
-      $('.ui.right.sidebar')
-        .sidebar('setting', 'transition', 'overlay')
-        .sidebar('toggle');
-    }
+    openRightSidebar();
   },
   'click #forkPage': function () {
     var page = this;

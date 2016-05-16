@@ -1,5 +1,5 @@
 Template.item.onCreated(function () {
-  var template = this
+  var template = this;
   template.subscribe('Item', this.data.itemId);
 });
 
@@ -53,11 +53,7 @@ Template.item.events({
     Session.set('currentSegmentId', $(evt.currentTarget).data('segment'));
     Session.set('sideBarData', this);
     Session.set('sideBarTemplate', 'editItem');
-    if (! $('.right.sidebar').hasClass('visible')) {
-      $('.ui.right.sidebar')
-        .sidebar('setting', 'transition', 'overlay')
-        .sidebar('toggle');
-    }
+    openRightSidebar();
   },
   'click .removeItem': function (evt, tmpl) {
     if (Meteor.userId()) {

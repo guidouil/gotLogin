@@ -1,5 +1,5 @@
 Template.topItems.onCreated(function () {
-  var template = this
+  var template = this;
   template.subscribe('PublicItems');
 });
 

@@ -35,6 +35,11 @@
       </button>
       {{/if}}
     </div>
-  </div>
 
+    {{#if isAddingItem}}
+      <div class="ui horizontal divider">Or</div>
+      {{> addExistingItems}}
+    {{/if}}
+
+  </div>
 </template>

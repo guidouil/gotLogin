@@ -1,5 +1,5 @@
 Template.myItems.onCreated(function () {
-  var template = this
+  var template = this;
   template.subscribe('MyItems');
 });
 
@@ -33,12 +33,9 @@ Template.myItems.events({
     }
   },
   'click .createItem': function () {
-    Session.delete('sideBarData');
     Session.set('sideBarTemplate', 'editItem');
-    if (! $('.right.sidebar').hasClass('visible')) {
-      $('.ui.right.sidebar')
-        .sidebar('setting', 'transition', 'overlay')
-        .sidebar('toggle');
-    }
+    Session.delete('sideBarData');
+    Session.delete('currentSegmentId');
+    openRightSidebar();
   }
 });
