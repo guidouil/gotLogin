@@ -3,33 +3,25 @@
     <a class="active item" data-tab="myItems">My buttons</a>
     <a class="item" data-tab="publicItems">Public buttons</a>
   </div>
-  <div class="ui bottom attached active tab segment" data-tab="myItems">
-    <div class="ui horizontal list">
-      {{#each myItems}}
-        {{> itemToAdd itemId=this._id}}
-      {{else}}
-        <div class="item">
-          No button yet, try to add one with form above or add from public buttons tab.
-        </div>
-      {{/each}}
-    </div>
+  <div class="ui basic bottom attached active tab segment" data-tab="myItems">
+    {{#each myItems}}
+      {{> itemToAdd itemId=this._id}}
+    {{else}}
+      You have no buttons yet. You can create one with the above form, or add one from the public buttons tab.
+    {{/each}}
   </div>
-  <div class="ui bottom attached tab segment" data-tab="publicItems">
-    <div class="ui horizontal list">
-      {{#each publicItems}}
-        {{> itemToAdd itemId=this._id}}
-      {{/each}}
-    </div>
+  <div class="ui basic bottom attached tab segment" data-tab="publicItems">
+    {{#each publicItems}}
+      {{> itemToAdd itemId=this._id}}
+    {{/each}}
   </div>
 </template>
 
 <template name="itemToAdd">
   {{#with item}}
-  <div class="item">
-    <a class="ui tiny {{color}} {{iconClass icon}} button itemButton addThisItem" data-title="{{description}}" data-content="{{url}} | {{clicks}} click{{plural clicks}}" data-position="bottom center" data-segment="{{../segmentId}}">
+    <a class="ui small {{color}} {{iconClass icon}} button itemButton addThisItem" data-title="{{description}}" data-content="{{url}} | {{clicks}} click{{plural clicks}}" data-position="bottom center" data-segment="{{../segmentId}}">
       {{#if icon}}<i class="{{icon}} icon"></i>{{/if}}
       {{name}}
     </a>
-  </div>
   {{/with}}
 </template>

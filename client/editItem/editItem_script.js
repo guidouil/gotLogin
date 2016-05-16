@@ -4,9 +4,6 @@ Template.editItem.onCreated(function () {
 Template.editItem.onRendered(function () {
   setTimeout(function () {
     $('.itemButtonPreview').popup();
-    if (! Session.get('sideBarData')) {
-      $('select').dropdown('restore defaults');
-    }
   }, 500);
 });
 
@@ -139,6 +136,7 @@ Template.editItem.events({
       currentItem[evt.currentTarget.name] = evt.currentTarget.value;
     }
     Session.set('sideBarData', currentItem);
+    $('.itemButtonPreview').popup();
   },
   'change #itemIcon, change #itemColor': function (evt) {
     var currentItem = Session.get('sideBarData') || {};

@@ -8,6 +8,7 @@ Template.page.onRendered(function () {
     $('#pageSettings')
     .popup({
       popup     : $('.custom.popup'),
+      on        : 'click',
       inline    : true,
       hoverable : true,
       position  : 'bottom left'
@@ -21,22 +22,19 @@ Template.page.onRendered(function () {
           }
         });
       });
-      Sortable.create(document.getElementById('pageSegments'), {
-        draggable: 'pageSegment'
-      });
+      // Sortable.create(document.getElementById('pageSegments'), {
+      //   draggable: 'pageSegment'
+      // });
     }
-  }, 400);
+  }, 500);
 
-  Tracker.autorun(function () {
-    document.title = Session.get('documentTitle');
-  });
 });
 
 Template.page.helpers({
   page: function () {
     var page = Pages.findOne({ _id: Router.current().params.pageId });
     if (page) {
-      Session.set('documentTitle', page.name);
+      document.title = page.name;
     }
     return page;
   },
@@ -85,7 +83,7 @@ Template.page.events({
   'click #savePage': function (evt, tmpl) {
     var pageId = Router.current().params.pageId;
     var page = Pages.findOne({ _id: pageId });
-    if (Meteor.userId() && page && _.contains( page.owners, Meteor.userId())) {
+    if (page && isPageOwner( page._id, Meteor.userId())) {
       var pageUpdate = {};
       pageUpdate.name = tmpl.find('.pageName').value;
       pageUpdate.description = tmpl.find('.pageDescription').value;
@@ -134,6 +132,7 @@ Template.page.events({
       $('#pageSettings')
       .popup({
         popup     : $('.custom.popup'),
+        on        : 'click',
         inline    : true,
         hoverable : true,
         position  : 'bottom left'
@@ -142,13 +141,13 @@ Template.page.events({
   },
   'click #deletePage': function () {
     var page = Pages.findOne({ _id: Router.current().params.pageId });
-    if (Meteor.userId() && page && _.contains(page.owners, Meteor.userId())) {
+    if (page && isPageOwner(page._id, Meteor.userId())) {
       swal({
         title: 'Are you sure?',
         text: 'You will not be able to recover the ' + page.name + ' page!',
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
+        confirmButtonColor: '#E03997',
         confirmButtonText: 'Yes, delete it!',
         closeOnConfirm: false
       }, function () {
@@ -173,6 +172,32 @@ Template.page.events({
     var emptySegment = {};
     emptySegment.segmentId = Random.id();
     Pages.update({ _id: Router.current().params.pageId }, { $push: { segments: emptySegment } });
+  },
+  'click .dropSegment': function () {
+    var thisSegment = this;
+    var page = Pages.findOne({ _id: Router.current().params.pageId });
+    if (page && isPageOwner(page._id, Meteor.userId())) {
+      swal({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover the ' + thisSegment.name + ' segment and it\'s buttons!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#E03997',
+        confirmButtonText: 'Yes, delete it!',
+        closeOnConfirm: false
+      }, function () {
+        var segments = _.reject( page.segments, function (segment) {
+          return segment.segmentId === thisSegment.segmentId;
+        });
+        Pages.update({ _id: page._id }, { $set: { segments: segments } });
+        swal({
+          title: 'Deleted!',
+          text: 'The ' + thisSegment.name + ' segment has been deleted.',
+          timer: 1000,
+          type: 'success'
+        });
+      });
+    }
   },
   'click #ownersAndUsers': function () {
     Session.set('sideBarData', this);

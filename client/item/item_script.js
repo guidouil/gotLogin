@@ -67,7 +67,7 @@ Template.item.events({
           text: 'Remove ' + item.name + ' button from page?',
           type: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#DD6B55',
+          confirmButtonColor: '#E03997',
           confirmButtonText: 'Yes, remove it!',
           closeOnConfirm: false
         }, function () {
@@ -105,7 +105,7 @@ Template.item.events({
         text: 'You will not be able to recover the ' + item.name + ' button!',
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
+        confirmButtonColor: '#E03997',
         confirmButtonText: 'Yes, delete it!',
         closeOnConfirm: false
       }, function () {
